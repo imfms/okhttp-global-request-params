@@ -10,6 +10,7 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.http.HttpMethod;
 
 /**
  * Global Http Params Intercepter For OkHttp
@@ -72,77 +73,19 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         /*
         RequestBody
          */
-        RequestBody targetRequestBody = sourceRequest.body();
-        if (targetRequestBody != null) {
-
-            RequestBody sourceRequestBody = sourceRequest.body();
-
-            /*
-            FormBody
-             */
-            if (targetRequestBody instanceof FormBody) {
-
-                FormBody appendFormBody = appendParams.formBody();
-                if (appendFormBody != null) {
-
-                    FormBody sourceFormBody = (FormBody) sourceRequestBody;
-                    FormBody.Builder targetFormBodyBuilder = new FormBody.Builder();
-
-                    /* source */
-                    for (int x = 0; x < sourceFormBody.size(); x++) {
-
-                        String name = sourceFormBody.name(x);
-                        String value = sourceFormBody.value(x);
-
-                        targetFormBodyBuilder.add(name, value);
-                    }
-
-                    /* append */
-                    for (int x = 0; x < appendFormBody.size(); x++) {
-
-                        String name = appendFormBody.name(x);
-                        String value = appendFormBody.value(x);
-
-                        targetFormBodyBuilder.add(name, value);
-                    }
-
-                    targetRequestBody = targetFormBodyBuilder.build();
-                }
-
-            }
-            /*
-            MultipartBody
-             */
-            else if (targetRequestBody instanceof MultipartBody) {
-
-                MultipartBody appendMultipartBody = appendParams.multipartBody();
-                if (appendMultipartBody != null) {
-
-                    MultipartBody sourceMultipartBody = (MultipartBody) sourceRequestBody;
-                    MultipartBody.Builder targetMultipartBodyBuilder = new MultipartBody.Builder();
-
-                    /* source */
-                    for (int x = 0; x < sourceMultipartBody.size(); x++) {
-
-                        MultipartBody.Part part = sourceMultipartBody.part(x);
-
-                        targetMultipartBodyBuilder.addPart(part);
-                    }
-
-                    /* append */
-                    for (int x = 0; x < appendMultipartBody.size(); x++) {
-
-                        MultipartBody.Part part = appendMultipartBody.part(x);
-
-                        targetMultipartBodyBuilder.addPart(part);
-                    }
-
-                    targetRequestBody = targetMultipartBodyBuilder.build();
-                }
-            }
+        RequestBody targetRequestBody = null;
+        // when request method can take RequestBody
+        if (HttpMethod.requiresRequestBody(sourceRequest.method())) {
+            targetRequestBody = concatRequestBody(
+                    sourceRequest.body(),
+                    appendParams.formBody(),
+                    appendParams.multipartBody()
+            );
         }
 
-
+        /*
+        Generate Target Request
+         */
         Request targetRequest = sourceRequest.newBuilder()
                 .headers(targetHeaders)
                 .url(targetHttpUrl)
@@ -152,7 +95,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         return chain.proceed(targetRequest);
     }
 
-    public Headers concatHeader(Headers firstHeaders, Headers secondHeaders) {
+    private Headers concatHeader(Headers firstHeaders, Headers secondHeaders) {
         if (secondHeaders == null) {
             return firstHeaders;
         }
@@ -200,12 +143,6 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
             return isNull;
         }
 
-        // TODO
-
-        if (isNull == null) {
-            return null;
-        }
-
         FormBody.Builder targetFormBodyBuilder = new FormBody.Builder();
 
         /* source */
@@ -227,6 +164,79 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         }
 
         return targetFormBodyBuilder.build();
+    }
+
+    public MultipartBody concatMultipartBody(MultipartBody firstMultipartBody, MultipartBody secondMultipartBody) {
+
+        MultipartBody isNull =
+                firstMultipartBody != null ?
+                        firstMultipartBody : secondMultipartBody != null ?
+                        secondMultipartBody : null;
+
+        if (firstMultipartBody == null
+                || secondMultipartBody == null) {
+            return isNull;
+        }
+
+        MultipartBody.Builder targetMultipartBodyBuilder = new MultipartBody.Builder();
+
+        /* source */
+        for (int x = 0; x < firstMultipartBody.size(); x++) {
+
+            MultipartBody.Part part = firstMultipartBody.part(x);
+
+            targetMultipartBodyBuilder.addPart(part);
+        }
+
+        /* append */
+        for (int x = 0; x < secondMultipartBody.size(); x++) {
+
+            MultipartBody.Part part = secondMultipartBody.part(x);
+
+            targetMultipartBodyBuilder.addPart(part);
+        }
+
+        return targetMultipartBodyBuilder.build();
+    }
+
+    public RequestBody concatRequestBody(RequestBody firstRequestBody, FormBody secondFormBody, MultipartBody secondMultipartBody) {
+
+        RequestBody isNull =
+                firstRequestBody != null ?
+                        firstRequestBody : secondFormBody != null ?
+                        secondFormBody : secondMultipartBody != null ?
+                        secondMultipartBody : null;
+
+        if (firstRequestBody == null) {
+            return isNull;
+        }
+
+        /*
+        FormBody
+         */
+        if (firstRequestBody instanceof FormBody) {
+
+            return concatFormBody(
+                    (FormBody) firstRequestBody,
+                    secondFormBody
+            );
+        }
+        /*
+        MultipartBody
+         */
+        else if (firstRequestBody instanceof MultipartBody) {
+
+            return concatMultipartBody(
+                    (MultipartBody) firstRequestBody,
+                    secondMultipartBody
+            );
+        }
+        /*
+        OtherRequestBody
+         */
+        else {
+            return firstRequestBody;
+        }
     }
 
 }
