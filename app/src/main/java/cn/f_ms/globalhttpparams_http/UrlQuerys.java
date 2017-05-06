@@ -4,12 +4,11 @@ import okhttp3.HttpUrl;
 
 public class UrlQuerys {
 
-    private HttpUrl.Builder mUrlBuilder;
+    private HttpUrl mHttpUrl;
 
-    private UrlQuerys(HttpUrl.Builder urlBuilder) { this.mUrlBuilder = urlBuilder; }
+    private UrlQuerys(HttpUrl httpUrl) { this.mHttpUrl = httpUrl; }
 
-    HttpUrl.Builder urlQuerys() { return mUrlBuilder; }
-
+    HttpUrl url() { return mHttpUrl; }
 
     public static class Builder {
 
@@ -39,7 +38,15 @@ public class UrlQuerys {
             return this;
         }
 
-        public UrlQuerys build() { return new UrlQuerys(httpUrlBuilder); }
+        public UrlQuerys build() {
+
+            /* unuseful, jump HttpUrl's throw exception */
+            httpUrlBuilder
+                    .scheme("http")
+                    .host("none");
+
+            return new UrlQuerys(httpUrlBuilder.build());
+        }
     }
 
 }
