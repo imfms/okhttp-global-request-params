@@ -11,14 +11,10 @@ import okhttp3.RequestBody;
  */
 public class FormBodyAppender implements RequestBodyAppender {
 
-    private static class Instance {
-        static final FormBodyAppender INSTANCE = new FormBodyAppender();
-    }
-
     private FormBodyAppender() {}
 
-    public static FormBodyAppender getInstance() {
-        return Instance.INSTANCE;
+    public static FormBodyAppender create() {
+        return new FormBodyAppender();
     }
 
     @Override

@@ -11,12 +11,8 @@ import okhttp3.RequestBody;
  */
 public class MulitPartBodyAppender implements RequestBodyAppender {
 
-    private static class Instance {
-        static final MulitPartBodyAppender INSTANCE = new MulitPartBodyAppender();
-    }
-
     private MulitPartBodyAppender() {}
-    public static MulitPartBodyAppender getInstance() { return Instance.INSTANCE; }
+    public static MulitPartBodyAppender create() { return new MulitPartBodyAppender(); }
 
     @Override
     public boolean isAccept(RequestBody sourceBody, RequestBody appendBody) {

@@ -205,7 +205,11 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
     }
 
     private void addDefaultRequestBodyAppender() {
-        addRequestBodyAppender(FormBodyAppender.getInstance());
-        addRequestBodyAppender(MulitPartBodyAppender.getInstance());
+        addRequestBodyAppender(
+                FormBodyAppender.create()
+        );
+        addRequestBodyAppender(
+                MulitPartBodyAppender.create()
+        );
     }
 }
