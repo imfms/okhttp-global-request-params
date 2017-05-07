@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void request() {
 
         Request request = new Request.Builder()
-                .url("http://www.baidu.com?c=d")
+                .url("http://www.baidu.com")
                 .post(
                         new MultipartBody.Builder()
                                 .addFormDataPart("name", "value")

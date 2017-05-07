@@ -1,1 +1,1 @@
-include ':app', ':okhttp-global-request-params'
+include ':sample', ':okhttp-global-request-params'

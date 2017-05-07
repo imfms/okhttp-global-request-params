@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
  * @author f-ms
  * @time 2017/5/7
  */
-public class MulitPartBodyAppender implements GlobalHttpParamsIntercepter.RequestBodyAppender {
+public class MulitPartBodyAppender implements RequestBodyAppender {
 
     private static class Instance {
         static final MulitPartBodyAppender INSTANCE = new MulitPartBodyAppender();

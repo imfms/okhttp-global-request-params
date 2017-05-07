@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
  * @author f-ms
  * @time 2017/5/7
  */
-public class FormBodyAppender implements GlobalHttpParamsIntercepter.RequestBodyAppender {
+public class FormBodyAppender implements RequestBodyAppender {
 
     private static class Instance {
         static final FormBodyAppender INSTANCE = new FormBodyAppender();
