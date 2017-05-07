@@ -5,6 +5,10 @@
 
 An flexible global http request params append tool for Okhttp Interceptor mode
 
+[中文文档](README_CN.md)
+
+`Joke with my poor English`
+
 ## Reference Method
 
 - Gradle LatestVersion is [![](https://jitpack.io/v/imfms/okhttp-global-http-params.svg)](https://jitpack.io/#imfms/okhttp-global-http-params)
