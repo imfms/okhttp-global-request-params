@@ -15,7 +15,7 @@ okhttp interceptor 方式实现的强壮全局附加请求参数工具，可根�
         }
         
         dependencies {
-            compile 'compile 'com.github.imfms:okhttp-global-http-params:${最新版本}'
+            compile 'com.github.imfms:okhttp-global-http-params:${最新版本}'
         }
 
 ## 可添加参数
