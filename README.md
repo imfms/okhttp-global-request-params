@@ -19,7 +19,7 @@ An flexible global http request params append tool for Okhttp Interceptor mode
         }
         
         dependencies {
-            compile 'compile 'com.github.imfms:okhttp-global-http-params:${latest.version}'
+            compile 'com.github.imfms:okhttp-global-http-params:${latest.version}'
         }
 
 ## Support Params
