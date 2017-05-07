@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/GlobalHttpParams-Http.iml" filepath="$PROJECT_DIR$/GlobalHttpParams-Http.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttp-global-http-params.iml" filepath="$PROJECT_DIR$/okhttp-global-http-params.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params.iml" />
     </modules>
   </component>
 </project>

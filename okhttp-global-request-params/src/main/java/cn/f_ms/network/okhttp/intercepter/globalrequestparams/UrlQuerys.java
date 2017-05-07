@@ -1,4 +1,4 @@
-package cn.f_ms.globalhttpparams_http;
+package cn.f_ms.network.okhttp.intercepter.globalrequestparams;
 
 import okhttp3.HttpUrl;
 
