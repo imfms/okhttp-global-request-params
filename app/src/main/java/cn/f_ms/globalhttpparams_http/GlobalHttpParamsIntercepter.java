@@ -27,7 +27,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
          *
          * @return global http params, return can be null
          */
-        HttpParams getParams();
+        HttpParams getParams(Request request);
     }
 
     private OnNeedHttpParams mOnNeedHttpParams;
@@ -44,9 +44,9 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        HttpParams appendParams = mOnNeedHttpParams.getParams();
-
         Request sourceRequest = chain.request();
+
+        HttpParams appendParams = mOnNeedHttpParams.getParams(sourceRequest);
 
         if (appendParams == null) {
             return chain.proceed(sourceRequest);
@@ -112,7 +112,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         return sourceHeadersBuilder.build();
     }
 
-    public HttpUrl concatUrlQuery(HttpUrl firstUrl, HttpUrl secondUrl) {
+    private HttpUrl concatUrlQuery(HttpUrl firstUrl, HttpUrl secondUrl) {
 
         if (secondUrl == null) {
             return firstUrl;
@@ -131,7 +131,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         return sourceHttpUrlBuilder.build();
     }
 
-    public FormBody concatFormBody(FormBody firstFormBody, FormBody secondFormBody) {
+    private FormBody concatFormBody(FormBody firstFormBody, FormBody secondFormBody) {
 
         FormBody isNull =
                 firstFormBody != null ?
@@ -166,7 +166,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         return targetFormBodyBuilder.build();
     }
 
-    public MultipartBody concatMultipartBody(MultipartBody firstMultipartBody, MultipartBody secondMultipartBody) {
+    private MultipartBody concatMultipartBody(MultipartBody firstMultipartBody, MultipartBody secondMultipartBody) {
 
         MultipartBody isNull =
                 firstMultipartBody != null ?
@@ -199,7 +199,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         return targetMultipartBodyBuilder.build();
     }
 
-    public RequestBody concatRequestBody(RequestBody firstRequestBody, FormBody secondFormBody, MultipartBody secondMultipartBody) {
+    private RequestBody concatRequestBody(RequestBody firstRequestBody, FormBody secondFormBody, MultipartBody secondMultipartBody) {
 
         RequestBody isNull =
                 firstRequestBody != null ?
