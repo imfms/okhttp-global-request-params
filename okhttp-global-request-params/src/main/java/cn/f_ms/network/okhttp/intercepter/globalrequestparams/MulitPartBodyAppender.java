@@ -28,6 +28,8 @@ public class MulitPartBodyAppender implements RequestBodyAppender {
 
         MultipartBody.Builder targetMultipartBodyBuilder = new MultipartBody.Builder();
 
+        targetMultipartBodyBuilder.setType(firstMultipartBody.type());
+
         /* source */
         for (int x = 0; x < firstMultipartBody.size(); x++) {
 
