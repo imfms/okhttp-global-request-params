@@ -69,7 +69,11 @@ okhttp interceptor 方式实现的强壮全局附加请求参数工具，可根�
 
 ### 自定义RequestBody处理
 
-在实际业务需求中很可能会使用自定义RequestBody规范，故使用提供的方法则无法迎合业务需求，这种情况下可以自定义RequestBody追加器并添加到本库中
+默认会添加追加器 FormBodyAppender 和 MulitPartBodyAppender, 如不需要可在使用前调用 clearRequestBodyAppender 方法
+
+在实际业务需求中可能会使用自定义RequestBody规范，故使用提供的方法则无法迎合业务需求，这种情况下可以自定义RequestBody追加器并添加到本库中
+
+**注意: 因实际项目中可能会遇到当 '须携带请求体的请求方法(post, put ... )而请求体为空时(contentLength == 0)' 想要追加全局参数的情况, 因为无法知晓开发者所需要的contentType及对应的参数组织方式, 故开发者如有类似需求请务必自定义RequestBodyAppender进行处理**
 
 #### 追加器定义 RequestBodyAppender
 ~~~java
@@ -93,9 +97,5 @@ public interface RequestBodyAppender {
 
 #### 添加追加器到GlobalHttpParamsIntercepter
 ~~~java
-class GlobalHttpParamsIntercepter {
-    GlobalHttpParamsIntercepter addRequestBodyAppender(RequestBodyAppender appender);
-}
+    GlobalHttpParamsIntercepter.addRequestBodyAppender(RequestBodyAppender appender);
 ~~~
-
-默认会添加追加器 FormBodyAppender 和 MulitPartBodyAppender, 如不需要可在使用前调用 clearRequestBodyAppender 方法
