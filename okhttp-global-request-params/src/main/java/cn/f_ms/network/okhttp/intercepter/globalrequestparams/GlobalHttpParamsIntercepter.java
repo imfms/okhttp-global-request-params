@@ -54,7 +54,9 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
      */
     public GlobalHttpParamsIntercepter addRequestBodyAppender(RequestBodyAppender appender) {
 
-        if (appender == null) { throw new NullPointerException(); }
+        if (appender == null) {
+            throw new NullPointerException();
+        }
 
         if (mRequestBodyAppender == null) {
             mRequestBodyAppender = new ArrayList<>(4);
@@ -198,7 +200,11 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         }
 
         System.err.println(">>>> " + TAG + " ERROR:");
-        System.err.println("can't find proper RequestBodyAppender, cancel append global http params, please check the code");
+        System.err.println(
+                "can't find proper RequestBodyAppender for RequestBody '"
+                        + firstRequestBody.getClass().getSimpleName()
+                        + "', cancel append global http params, please check the code"
+        );
         System.err.println("<<<<");
 
         return firstRequestBody;
