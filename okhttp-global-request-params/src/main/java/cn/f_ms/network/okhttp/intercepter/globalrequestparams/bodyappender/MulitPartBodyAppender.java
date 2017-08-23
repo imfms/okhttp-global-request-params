@@ -1,5 +1,6 @@
-package cn.f_ms.network.okhttp.intercepter.globalrequestparams;
+package cn.f_ms.network.okhttp.intercepter.globalrequestparams.bodyappender;
 
+import cn.f_ms.network.okhttp.intercepter.globalrequestparams.RequestBodyAppender;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
