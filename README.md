@@ -108,7 +108,5 @@ public interface RequestBodyAppender {
 
 #### Add Custom Appender To GlobalHttpParamsIntercepter
 ~~~java
-class GlobalHttpParamsIntercepter {
-    GlobalHttpParamsIntercepter addRequestBodyAppender(RequestBodyAppender appender);
-}
+    GlobalHttpParamsIntercepter.addRequestBodyAppender(RequestBodyAppender appender);
 ~~~
