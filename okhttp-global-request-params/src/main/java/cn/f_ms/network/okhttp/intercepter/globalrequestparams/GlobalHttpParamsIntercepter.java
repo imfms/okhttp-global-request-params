@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.f_ms.network.okhttp.intercepter.globalrequestparams.bodyappender.FormBodyAppender;
+import cn.f_ms.network.okhttp.intercepter.globalrequestparams.bodyappender.MulitPartBodyAppender;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -54,7 +56,9 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
      */
     public GlobalHttpParamsIntercepter addRequestBodyAppender(RequestBodyAppender appender) {
 
-        if (appender == null) { throw new NullPointerException(); }
+        if (appender == null) {
+            throw new NullPointerException();
+        }
 
         if (mRequestBodyAppender == null) {
             mRequestBodyAppender = new ArrayList<>(4);
@@ -89,7 +93,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         }
 
         /*
-        HttpHeaders
+        Concat HttpHeaders
          */
         Headers targetHeaders = concatHeader(
                 sourceRequest.headers(),
@@ -97,7 +101,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         );
 
         /*
-        HttpUrlQuery
+        Concat HttpUrlQuery
          */
         HttpUrl targetHttpUrl = concatUrlQuery(
                 sourceRequest.url(),
@@ -107,7 +111,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         );
 
         /*
-        RequestBody
+        Concat RequestBody
          */
         RequestBody targetRequestBody = concatRequestBody(
                 sourceRequest.method(),
@@ -198,7 +202,11 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         }
 
         System.err.println(">>>> " + TAG + " ERROR:");
-        System.err.println("can't find proper RequestBodyAppender, cancel append global http params, please check the code");
+        System.err.println(
+                "can't find proper RequestBodyAppender for RequestBody '"
+                        + firstRequestBody.getClass().getSimpleName()
+                        + "', cancel append global http params, please check the code"
+        );
         System.err.println("<<<<");
 
         return firstRequestBody;

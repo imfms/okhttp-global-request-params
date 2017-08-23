@@ -74,6 +74,12 @@ An flexible global http request params append tool for Okhttp Interceptor mode
 
 ### Custom RequestBody Appender
 
+Developer project maybe need custom RequestBody, so default method can't use, library provide custom RequestBody appender.
+
+Default Support FormBodyAppender & MulitPartBodyAppender, if don't need please call clearRequestBodyAppender
+
+**Attention: Developer project maybe need 'when http request need requestbody method but request body be empty(contentLength == 0)' appender gloable params, library can't know developer's contentType and params append method, so if developer need be similar to up content please must custom & specify RequestBodyAppender**
+
 #### Write An Custom Appender - RequestBodyAppender
 ~~~java
 /**
@@ -106,5 +112,3 @@ class GlobalHttpParamsIntercepter {
     GlobalHttpParamsIntercepter addRequestBodyAppender(RequestBodyAppender appender);
 }
 ~~~
-
-Default Support FormBodyAppender & MulitPartBodyAppender, if don't need please call clearRequestBodyAppender
