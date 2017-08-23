@@ -91,7 +91,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         }
 
         /*
-        HttpHeaders
+        Concat HttpHeaders
          */
         Headers targetHeaders = concatHeader(
                 sourceRequest.headers(),
@@ -99,7 +99,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         );
 
         /*
-        HttpUrlQuery
+        Concat HttpUrlQuery
          */
         HttpUrl targetHttpUrl = concatUrlQuery(
                 sourceRequest.url(),
@@ -109,7 +109,7 @@ public class GlobalHttpParamsIntercepter implements Interceptor {
         );
 
         /*
-        RequestBody
+        Concat RequestBody
          */
         RequestBody targetRequestBody = concatRequestBody(
                 sourceRequest.method(),
