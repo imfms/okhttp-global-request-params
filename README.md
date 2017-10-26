@@ -78,8 +78,6 @@ Developer project maybe need custom RequestBody, so default method can't use, li
 
 Default Support FormBodyAppender & MulitPartBodyAppender, if don't need please call clearRequestBodyAppender
 
-**Attention: Developer project maybe need 'when http request need requestbody method but request body be empty(contentLength == 0)' appender gloable params, library can't know developer's contentType and params append method, so if developer need be similar to up content please must custom & specify RequestBodyAppender**
-
 #### Write An Custom Appender - RequestBodyAppender
 ~~~java
 /**
@@ -109,4 +107,30 @@ public interface RequestBodyAppender {
 #### Add Custom Appender To GlobalHttpParamsIntercepter
 ~~~java
     GlobalHttpParamsIntercepter.addRequestBodyAppender(RequestBodyAppender appender);
+~~~
+
+**Attention: Developer project maybe need 'when http request need requestbody method but request body be empty(contentLength == 0)' appender gloable params, library can't know developer's contentType and params append method, so if developer need be similar to up content please must custom & specify RequestBodyAppender**
+
+~~~java
+public class EmptyRequestBodyAppender implements RequestBodyAppender {
+
+    @Override public boolean isAccept(RequestBody requestBody, RequestBody requestBody1) {
+
+        long contentLength;
+
+        try {
+            contentLength = requestBody.contentLength();
+        } catch (IOException e) {
+            contentLength = -1;
+        }
+
+        return contentLength <= 0
+                && requestBody1 instanceof FormBody;
+    }
+
+    @Override public RequestBody append(RequestBody requestBody, RequestBody requestBody1) {
+        return requestBody1;
+    }
+
+}
 ~~~
