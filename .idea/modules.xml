@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/GlobalHttpParams-Http.iml" filepath="$PROJECT_DIR$/GlobalHttpParams-Http.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttp-global-http-params.iml" filepath="$PROJECT_DIR$/okhttp-global-http-params.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params-okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params-okhttp-global-request-params.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params-okhttp-global-request-params.iml" filepath="$PROJECT_DIR$/okhttp-global-request-params/okhttp-global-request-params-okhttp-global-request-params.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />

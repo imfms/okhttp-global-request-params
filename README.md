@@ -111,6 +111,8 @@ public interface RequestBodyAppender {
 
 **Attention: Developer project maybe need 'when http request need requestbody method but request body be empty(contentLength == 0)' appender gloable params, library can't know developer's contentType and params append method, so if developer need be similar to up content please must custom & specify RequestBodyAppender**
 
+**For example:**
+
 ~~~java
 public class EmptyRequestBodyAppender implements RequestBodyAppender {
 
