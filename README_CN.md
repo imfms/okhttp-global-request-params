@@ -100,6 +100,8 @@ public interface RequestBodyAppender {
 
 **注意: 因实际项目中可能会遇到当 '须携带请求体的请求方法(post, put ... )而请求体为空时(contentLength == 0)' 想要追加全局参数的情况, 因为无法知晓开发者所需要的contentType及对应的参数组织方式, 故开发者如有类似需求请务必自定义RequestBodyAppender进行处理**
 
+**例如:**
+
 ~~~java
 public class EmptyRequestBodyAppender implements RequestBodyAppender {
 
